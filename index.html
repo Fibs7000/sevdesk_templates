@@ -1,0 +1,1059 @@
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,cyrillic,greek-ext' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face { font-family: 'ocrb'; src: url('https://docreactor.sevdesk.de/ocrb.ttf'); }
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 50mm 17mm 35mm 20mm;
+
+                @top-left {
+                    content: element(headerIdentifier);
+                }
+
+                @bottom-left {
+                    content: element(footerIdentifier);
+                }
+
+                @left-middle {
+                    content: element(foldlinesIdentifier);
+                }
+            }
+        }
+
+        .foldline1 {
+            position: absolute;
+            left:0;
+            top:55mm;
+            width:4mm;
+            border:0;
+            border-bottom: 1px solid #000;
+
+        }
+
+        .foldline2 {
+            position: absolute;
+            left:0;
+            top:160mm;
+            width:4mm;
+            border:0;
+            border-bottom: 1px solid #000;
+        }
+
+        .foldline3 {
+            position: absolute;
+            left:0;
+            top:98.5mm;
+            width:7mm;
+            border:0;
+            border-bottom: 1px solid #000;
+        }
+
+        aside.foldlines {
+            position: running(foldlinesIdentifier);
+        }
+
+
+        body.main {
+            font-family: 'Rajdhani';
+            counter-reset: position;
+        }
+
+        header {
+            position: running(headerIdentifier);
+            width:100%;
+            font-size:23pt;
+            text-align: right;
+        }
+
+
+        img.logo {
+            height:18mm;
+            position: absolute;
+            top:15mm;
+            right:0;
+        }
+		 div.shortPay {
+            font-size: 9pt;
+            line-height: 2.5;
+            position: relative;
+        }
+
+        div.centered {
+            position: absolute;
+            color:white;
+            font-size: 8pt;
+            font-weight: bold;
+            bottom:36px;
+            left:31px;
+
+        }
+
+        footer {
+            position: running(footerIdentifier);
+            width:100%;
+            font-size:7pt;
+            line-height: 10pt;
+            height:35mm;
+            overflow:hidden;
+
+        }
+
+        footer table {
+            width:100%;
+            color:#707070;
+        }
+
+        footer table td {
+            width:25%;
+        }
+
+        footer .pagecount {
+            text-align:right;
+            width:100%;
+        }
+
+        footer td{
+            vertical-align: top;
+        }
+
+        h1 {
+            font-size: 12pt;
+            font-weight: bold;
+        }
+
+        .qrcode {
+            -ro-replacedelement: qrcode;
+        }
+
+        .page::before {
+            content: counter(page);
+        }
+
+        .totalPages::before {
+            content: counter(pages);
+        }
+
+
+        div.addressline {
+            font-size: 6pt;
+            position: absolute;
+            top:-2mm;
+            left:1mm;
+            max-width: 87mm;
+            white-space: pre-wrap;
+        }
+
+        div.recipient {
+            font-size: 9pt;
+            position: absolute;
+            top:10mm;
+            left:1mm;
+            max-width: 87mm;
+            white-space: pre-wrap;
+        }
+
+        div.descbox {
+            position: absolute;
+            top:-15mm;
+            right:0;
+            width: 65mm;
+            font-size: 7pt;
+        }
+
+        .url-qrcodeWrapper {
+            height:14mm;
+            text-align: right;
+            margin-bottom:3mm;
+        }
+
+        .url-qrcode {
+            width:14mm;
+        }
+
+        div.descbox table {
+            width:100%;
+
+        }
+        div.descbox table tr{
+            margin:3px 0;
+        }
+
+        .headText {
+            font-size: 9pt;
+        }
+
+        .footText {
+            font-size: 9pt;
+        }
+
+        table tr {
+            vertical-align: top;
+        }
+
+        table.postable {
+            font-size: 9pt;
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin: 4mm 0;
+        }
+
+        table.postable td {
+            padding-right: 1mm;
+            padding-left: 1mm;
+        }
+
+        table.postable .position {
+            page-break-inside: auto;
+        }
+
+        table.postable .position td {
+            padding-bottom:2mm;
+        }
+
+        table.postable tbody .posnr {
+            padding-left:2mm;
+        }
+
+        table.postable .postext {
+            line-height:14pt;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-width: 90mm;
+        }
+
+        table.postable .discount {
+            font-size:7pt;
+            line-height: 10pt;
+        }
+
+        table.postable tfoot {
+            page-break-inside: avoid;
+            display:table-row-group;
+        }
+
+        table.postable tfoot .line {
+            border-top:1px solid #EBEBEB;
+            height:2pt;
+        }
+
+        table.postable tfoot .totalnet, table.postable tfoot .discountnet {
+            background-color: #EBEBEB;
+            line-height:6mm;
+            font-size:9pt;
+            padding:0 2mm;
+        }
+
+        table.postable tfoot .vat, table.postable tfoot .discount {
+            line-height:6mm;
+            font-size:9pt;
+            padding:0mm;
+            margin:0;
+            border:0;
+        }
+
+        table.postable tfoot .total {
+            background-color: #EBEBEB;
+            line-height:6mm;
+            font-size:9pt;
+            padding:0 2mm;
+            font-weight: bold;
+            margin:0;
+            border:0;
+        }
+
+        hr.invisible {
+            visibility: hidden;
+            clear: both;
+            margin: 0;
+            height:40mm;
+        }
+
+        table.postable tr{
+            line-height:6mm;
+            padding:0 2mm;
+        }
+
+        tr.postheader {
+            background-color: #EBEBEB;
+            font-weight: bold;
+        }
+
+        tr.postheader td {
+        	border-right:1px solid #EBEBEB;
+            white-space: nowrap;
+        }
+
+        table.postable td {
+            vertical-align: top;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        td.right {
+            text-align: right;
+        }
+
+        h1.partialInvoiceCalculation{
+            margin-top: 10mm;
+        }
+        table.partialheader{
+            page-break-inside: avoid;
+            font-size: 9pt;
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin: 4mm 0;
+        }
+        table.partialheader tr{
+            line-height:6mm;
+            padding:0 2mm;
+        }
+        table.partialheader tr td{
+            padding-right: 1mm;
+        }
+        table.partialheader thead tr td{
+            background-color: #EBEBEB;
+            font-weight: bold;
+        }
+        table.partialheader tbody tr.final_invoice_row{
+            border-bottom: 1px solid #EBEBEB;
+        }
+        table.partialheader tbody tr.sum_row{
+            border-top: 1px solid #EBEBEB;
+            font-weight: bold;
+        }
+        .newPage {
+            position: relative;
+            height: 297mm;
+            width: 210mm;
+        }
+
+        .paymentSlip-wrapper {
+            position: absolute;
+            left: -22mm!Important;
+            bottom: -141mm!important;
+            height: 297mm;
+            width: 210mm;
+        }
+
+        .paymentSlip-content {
+            position: relative;
+            background-image: url(http://grootreactor.s.sevenit.biz/img/einzahlungsschein.png);
+            background-size:100%;
+            max-width: 210mm!important;
+            width: 210mm;
+            height: 106mm;
+            max-height: 106mm;
+            overflow: hidden;
+            display: table;
+        }
+
+        .paymentSlip-content-v2 {
+            position: relative;
+            background: white!important;
+            background-size: 100%;
+            max-width: 210mm!important;
+            width: 210mm;
+            height: 106mm;
+            max-height: 106mm;
+            overflow: hidden;
+            display: table;
+        }
+
+        .paymentSlip-table-parent {
+            position: relative;
+            display: table-row;
+            width: 210mm;
+        }
+        .paymentSlip-table-wrapper {
+            position: relative;
+            display: table-cell;
+            width: 123mm;
+        }
+        .paymentSlip-table-wrapper2 {
+            position: relative;
+            display: table-cell;
+        }
+        .paymentSlip-table {
+
+            font-size: 8.5pt!important;
+            font-weight: lighter;
+            border-collapse: collapse!important;
+            border-spacing: 0!important;
+
+        }
+        .paymentSlip-table-row {
+            min-height: 30px;
+            vertical-align: top;
+        }
+        .paymentSlip-table-row > *{
+            padding-left: 2mm;
+            vertical-align: top;
+
+        }
+        .ocrFont {
+            font-family: 'ocrb'!important;
+        }
+    </style>
+
+</head>
+<body class="main">
+
+<header>
+    
+    
+    <img class="logo" alt="" src="data:image/png;base64,"/>
+    
+    
+    
+    
+    
+
+
+</header>
+
+
+<aside class="foldlines">
+    <hr class="foldline1"/>
+    <hr class="foldline2"/>
+    <hr class="foldline3"/>
+</aside>
+
+
+
+
+<footer>
+    
+    <div class="pagecount">
+        Page <span class="page"/> PageOf <span class="totalPages"/>
+    </div>
+    
+    
+    <table>
+        <tr>
+            <td>
+                <br/>
+                
+                <br/>
+                
+                <br/>
+                  <br/>
+                
+            </td>
+            <td>
+                
+                Tel.: <br/>
+                
+                
+                Fax.: <br/>
+                
+
+                
+                E-Mail.: <br/>
+                
+                
+                Web: 
+                
+            </td>
+            <td>
+                
+                <br/>
+                
+
+                
+                HR-Nr.: <br/>
+                
+
+                
+                VAT.-ID: <br/>
+                
+
+                
+                Tax-No.: <br/>
+                
+
+                
+                
+                Owner: 
+                
+                
+                CEO: 
+                
+                
+            </td>
+            <td>
+                
+                <br/>
+                
+
+                
+                Account no.: <br/>
+                
+
+                
+                Bank no.: <br/>
+                
+
+                
+                IBAN: <br/>
+                
+
+                
+                BIC: <br/>
+                
+            </td>
+
+        </tr>
+    </table>
+    
+</footer>
+
+
+<div class="addressline"> -  -  </div>
+
+
+<div class="recipient"><br /><span style="font-size: 14px;">VAT: </span></div>
+<div class="descbox">
+
+    <div class="url-qrcodeWrapper">
+        
+        <a href="" class="qrcode url-qrcode"></a>
+        
+    </div>
+
+
+    <table>
+        <tr style="font-size:11pt;">
+            <td style="width:50%;">Invoice Nr.</td>
+            <td class="right" style="word-wrap:break-word;"></td>
+        </tr>
+        <tr>
+            <td>Invoicedate</td>
+            <td class="right"></td>
+        </tr>
+
+        
+        <tr>
+            <td>customer_internal_note</td>
+            <td class="right" style="word-wrap: break-word; word-break: pre-wrap;"></td>
+        </tr>
+        
+
+        
+        
+        <tr>
+            <td>DeliverydateUntil</td>
+            <td class="right"> - </td>
+        </tr>
+        
+        
+        <tr>
+            <td>Deliverydate</td>
+            <td class="right"></td>
+        </tr>
+        
+        
+
+        <tr style="height:3mm;">
+            <td></td>
+            <td class="right"></td>
+        </tr>
+
+
+
+
+        <tr>
+            <td>Your customer no.</td>
+            <td class="right"></td>
+        </tr>
+        
+        <tr>
+            <td>Your VAT-ID</td>
+            <td class="right"></td>
+        </tr>
+        
+
+        <tr>
+            <td>Your contact</td>
+            <td class="right" style="word-wrap: break-word; word-break: pre-wrap;"></td>
+        </tr>
+
+    </table>
+
+</div>
+<hr class="invisible" />
+<h1></h1>
+<div class="headText">
+    
+</div>
+
+<table class="postable">
+    <thead>
+    <tr class="postheader">
+        <td style="width: 8mm">Pos.</td>
+        
+        <td style="width: 15mm">Article</td>
+        <td style="width: 40mm">Description</td>
+        
+        
+        <td style="width: 55mm" colspan="2">Description</td>
+        
+        <td style="width:17mm" class="right">Quantity</td>
+        <td style="width:25mm" class="right">Unit price</td>
+        <td style="width:25mm" class="right">Total price</td>
+    </tr>
+    </thead>
+    <tbody>
+    
+    <tr class="position">
+        
+        <td class="posnr">.</td>
+
+        
+        <td></td>
+        <td><span style="font-weight: bold;"></span><div class="postext"></div></td>
+        
+        
+        <td colspan="2"><span style="font-weight: bold;"></span><div class="postext"></div></td>
+        
+
+        <td class="right">
+            
+            
+            
+            
+        </td>
+        <td class="right"></td>
+        <td class="right">
+            
+            
+            <div class="discount">
+                (Discount % <br/>
+                )
+            </div>
+            
+            
+            <div class="discount">
+                (Tax %)<br/>
+            </div>
+            
+        </td>
+        
+        
+        <td colspan="5"><span style="font-weight: bold;"></span><div class="postext"></div></td>
+        
+    </tr>
+    
+    </tbody>
+    <tfoot>
+    <tr class="line">
+        <td colspan="6"></td>
+    </tr>
+    
+    <tr class="discountnet">
+        <td></td>
+
+        <td colspan="4">Sum positions net</td>
+
+        <td class="right">
+        </td>
+    </tr>
+
+    
+    <tr class="discount">
+        <td></td>
+
+        <td colspan="3"></td>
+
+        <td class="right"  colspan="2">
+            
+             % ()
+            
+            
+            
+            
+        </td>
+    </tr>
+    
+
+    
+    <tr class="totalnet">
+        <td></td>
+
+        <td colspan="4">Total net</td>
+
+        <td class="right">
+        </td>
+    </tr>
+    
+    
+    <tr class="vat">
+        <td></td>
+
+        <td colspan="4">plus VAT %</td>
+
+        <td class="right">
+        </td>
+    </tr>
+    
+    
+    
+    <tr class="vat">
+        <td></td>
+
+        <td colspan="4"></td>
+
+        <td class="right">
+            
+        </td>
+    </tr>
+    
+    
+    <tr class="vat">
+        <td></td>
+
+        <td colspan="4">
+            All prices are excluding value added tax (small entrepreneurs to Section 19 UStG)
+        </td>
+        <td class="right">
+        </td>
+    </tr>
+    
+    
+    <tr class="vat">
+        <td></td>
+
+        <td colspan="4">
+            Tax-exempt intra-Community supply
+        </td>
+
+        <td class="right">
+        </td>
+    </tr>
+    
+    
+    <tr class="vat">
+        <td></td>
+
+        <td colspan="4">
+            Reverse Charge
+        </td>
+
+        <td class="right">
+        </td>
+    </tr>
+    
+    <tr class="total">
+        <td></td>
+
+        <td colspan="4">Total gross</td>
+
+        <td class="right"></td>
+
+    </tr>
+    </tfoot>
+</table>
+
+
+<!-- calculation for final invoices -->
+
+
+	
+		<h1 class="partialInvoiceCalculation">InterimInvoiceCalculation</h1>
+	
+
+	
+		<h1 class="partialInvoiceCalculation">PartialInvoiceCalculation</h1>
+	
+
+<table class="partialheader">
+    <thead>
+    <tr>
+        <td style="width:55mm"></td>
+        <td style="width:25mm" class="right">net</td>
+        <td style="width:25mm" class="right">vat</td>
+        <td style="width:25mm" class="right">gross</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="final_invoice_row">
+        <td style="width:55mm"></td>
+        <td style="width:25mm" class="right"></td>
+        <td style="width:25mm" class="right"></td>
+        <td style="width:25mm" class="right"></td>
+    </tr>
+    
+    <tr>
+        <td style="width:55mm">- </td>
+        <td style="width:25mm" class="right"></td>
+        <td style="width:25mm" class="right"></td>
+        <td style="width:25mm" class="right"></td>
+    </tr>
+    
+    <tr class="sum_row">
+        <td style="width:55mm">RemainingAmount</td>
+        <td style="width:25mm" class="right"></td>
+        <td style="width:25mm" class="right"></td>
+        <td style="width:25mm" class="right"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<div class="shortPay">
+    Sie können diese Rechnung bequem online bezahlen:<br/>
+    <a href=""><div class="centered">Jetzt bezahlen</div></a>
+    <a href="">
+        <img width="120" height="30" alt="tick" title="Jetzt bezahlen" src="https://s3.eu-central-1.amazonaws.com/sevdoc-static-content/button.svg">
+
+    </a>
+
+    <img width="106" height="20" alt="tick" align="right" src="http://sevdoc-static-content.s3-website.eu-central-1.amazonaws.com/cards.svg"/><br/>
+
+    <a href=""></a>
+</div>
+
+
+<div class="footText">
+    
+    Delivery date footer text<br/>
+    
+
+    
+    <br/>
+    
+
+    
+    <br/>
+    
+
+    
+</div>
+
+
+
+<div class='newPage'>
+    <div class='paymentSlip-wrapper'>
+        
+        <div class='paymentSlip-content-v2'>
+            
+            
+            <div class='paymentSlip-content' >
+                
+                <div class="paymentSlip-table-parent">
+                    <div class='paymentSlip-table-wrapper'>
+                        <table class="paymentSlip-table">
+                            <tr style='height: 9mm'></tr>
+                            
+                            <tr class="paymentSlip-table-row" style="min-height:50px!important; width: 500px;">
+                                <td style="width: 50%;">
+                                    <span>&nbsp;</span><br>
+                                    <span>&nbsp;</span><br><br>
+                                </td>
+                                <td style="width: 50%;">
+                                    <span>&nbsp;</span><br>
+                                    <span>&nbsp;</span><br><br>
+                                </td>
+                            </tr>
+                            
+                            
+                            <tr class="paymentSlip-table-row" style="min-height:50px!important; width: 500px;">
+                                <td style="padding-left:5mm;!important">
+                                    <span></span><br>
+                                    <span> </span><br><br>
+                                </td>
+                                <td style="padding-left:5mm;!important">
+                                    <span></span><br>
+                                    <span> </span><br><br>
+                                </td>
+
+                            </tr>
+                            
+                            <tr class="paymentSlip-table-row" style="min-height:80px!important;">
+                                <td style="width: 50%;line-height: 12pt;padding-left:5mm;!important">
+                                    <span>
+                                        <br/>
+                                        <br/>
+                                          <br/>
+                                        
+                                    </span>
+                                </td>
+                                <td style="width: 50%;line-height: 12pt;padding-left:5mm;!important">
+                                    <span>
+                                        <br/>
+                                        <br/>
+                                          <br/>
+                                        
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="paymentSlip-table-row">
+                                <td style="text-align:right;padding-right:18mm;">
+                                    <span></span>
+                                </td>
+                                <td style="text-align:right;padding-right:15mm;">
+                                    <span></span>
+                                </td>
+                            </tr>
+                            <tr style='height: 1mm'></tr>
+                            <tr class="paymentSlip-table-row ocrFont" style="min-height:15px;">
+                                <td class="ocrFont" style="text-align:right;font-size:14px;font-weight:bold;vertical-align: middle!important;">
+                                    <span style="padding-right: 6mm;letter-spacing: 5px"></span>
+                                    <span style="padding-right: 5mm;letter-spacing: 5px"></span>
+                                </td>
+                                <td class="ocrFont" style="text-align:right;font-size:14px;font-weight:bold;vertical-align: middle!important;">
+                                    <span style="padding-right: 7mm;letter-spacing: 5px"></span>
+                                    <span style="padding-right: 6mm;letter-spacing: 5px"></span>
+                                </td>
+                            </tr>
+                            <tr style='height: 4mm'></tr>
+                            <tr class="paymentSlip-table-row">
+                                <td style="padding-left: 5mm!important;">
+                                    <span></span><br><br>
+                                    <span style="line-height: 12px;white-space: pre-wrap;"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class='paymentSlip-table-wrapper2'>
+                        <table class="paymentSlip-table">
+                            <tr style='height: 35mm'></tr>
+                            <tr class="paymentSlip-table-row">
+                                <td style="padding-left: 5mm!important;">
+                                    <span></span>
+                                </td>
+                            </tr>
+                            <tr style='height: 8mm'></tr>
+                            <tr class="paymentSlip-table-row">
+                                <td style="padding-left: 5mm!important">
+                                    <span style="line-height: 12px;white-space: pre-wrap;"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="ocrFont" style="position: absolute; width: 210mm; height: 20.05mm; left: 0; bottom: 0; font-size: 1.0em!important;">
+                    <div style="text-align: right; padding-right: 6.81mm;">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <div class='newPage'><!--auf dem Formular-->
+        <div class='paymentSlip-wrapper'>
+            <div class='paymentSlip-content'>
+                <div class="paymentSlip-table-parent">
+                    <div class='paymentSlip-table-wrapper'>
+                        <table class="paymentSlip-table">
+                            <tr style='height: 8mm'></tr>
+                            
+                            <tr class="paymentSlip-table-row" style="min-height:50px!important; width: 500px;">
+                                <td style="width: 50%;">
+                                    <span>&nbsp;</span><br>
+                                    <span>&nbsp;</span><br><br>
+                                </td>
+                                <td style="width: 50%;">
+                                    <span>&nbsp;</span><br>
+                                    <span>&nbsp;</span><br><br>
+                                </td>
+                            </tr>
+                            
+                            
+                            <tr class="paymentSlip-table-row" style="min-height:50px!important; width: 500px;">
+                                <td style="padding-left:5mm;!important">
+                                    <span></span><br>
+                                    <span> </span><br><br>
+                                </td>
+                                <td style="padding-left:5mm;!important">
+                                    <span></span><br>
+                                    <span> </span><br><br>
+                                </td>
+
+                            </tr>
+                            
+                            <tr class="paymentSlip-table-row" style="min-height:80px!important;">
+                                <td style="width: 50%;line-height: 12pt;padding-left:5mm;!important">
+                                    <span>
+                                        <br/>
+                                        <br/>
+                                          <br/>
+                                        
+                                    </span>
+                                </td>
+                                <td style="width: 50%;line-height: 12pt;padding-left:5mm;!important">
+                                    <span>
+                                        <br/>
+                                        <br/>
+                                          <br/>
+                                        
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="paymentSlip-table-row">
+                                <td style="text-align:right;padding-right:18mm">
+                                    <span></span>
+                                </td>
+                                <td style="text-align:right;padding-right:15mm">
+                                    <span></span>
+                                </td>
+                            </tr>
+                            <tr style='height: 1mm'></tr>
+                            <tr class="paymentSlip-table-row ocrFont" style="min-height:15px;">
+                                <td class="ocrFont" style="text-align:right;font-size:14px;font-weight:bold;vertical-align: middle!important">
+                                    <span style="padding-right: 6mm;letter-spacing: 5px"></span>
+                                    <span style="padding-right: 5mm;letter-spacing: 5px"></span>
+                                </td>
+                                <td class="ocrFont" style="text-align:right;font-size:14px;font-weight:bold;vertical-align: middle!important">
+                                    <span style="padding-right: 7mm;letter-spacing: 5px"></span>
+                                    <span style="padding-right: 6mm;letter-spacing: 5px"></span>
+                                </td>
+                            </tr>
+                            <tr style='height: 4mm'></tr>
+                            <tr class="paymentSlip-table-row">
+                                <td style="padding-left:5mm;!important">
+                                    <span></span><br><br>
+                                    <span style="line-height: 12px;white-space: pre-wrap;"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class='paymentSlip-table-wrapper2'>
+                        <table class="paymentSlip-table">
+                            <tr style='height: 34mm'></tr>
+                            <tr class="paymentSlip-table-row">
+                                <td style="padding-left: 5mm!important">
+                                    <span></span>
+                                </td>
+                            </tr>
+                            <tr style='height: 8mm'></tr>
+                            <tr class="paymentSlip-table-row">
+                                <td style="padding-left: 5mm!important">
+                                    <span style="line-height: 12px;white-space: pre-wrap;"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="ocrFont" style="position: absolute; width: 210mm; height: 20.05mm; left: 0; bottom: 0; font-size: 1.0em!important;">
+                    <div style="text-align: right; padding-right: 6.81mm;">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
